@@ -3,7 +3,7 @@
 **CC 写 HTML → 自动编译 → 模拟器弹出来直接看**
 
 这个目录是**原型工作区**（默认 `~/prototypes/`，可用 `PROTO_WORKSPACE` 环境变量改）。
-下面这些文件是脚手架，由 `ios-prototype-preview` skill 铺开的：
+下面这些文件是脚手架，由 `prototype-preview` skill 铺开的：
 
 ```
 <工作区>/

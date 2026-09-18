@@ -1,7 +1,7 @@
 ---
-name: ios-prototype-preview
+name: prototype-preview
 version: 1.0.0
-description: "iOS 原型设计预览。当用户想做移动端原型设计、H5 原型、手机端 Demo、在 iOS 模拟器中预览 HTML 原型，或提到「原型」「prototype」「在手机上看看效果」「做个 Demo」时使用。生成 HTML 原型后自动编译并在 iPhone 模拟器中展示。"
+description: "让 Claude 写好的 HTML 原型立刻跑在 iPhone 模拟器里：自动编译、自动安装、自动打开你刚改的那一页，下拉刷新就能看到最新改动。不用手写一行 Swift，也不用碰 Xcode 工程配置。做移动端原型设计、H5 原型、手机端 Demo，或提到「原型」「prototype」「在手机上看看效果」「过一遍真机效果」时使用。"
 ---
 
 # iOS 原型预览
