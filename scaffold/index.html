@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>原型项目列表</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro', sans-serif;
+            background: #f2f2f7;
+            color: #1d1d1f;
+            padding: 16px;
+            -webkit-font-smoothing: antialiased;
+        }
+        h1 { font-size: 28px; font-weight: 700; margin-bottom: 4px; }
+        .subtitle { font-size: 14px; color: #8e8e93; margin-bottom: 24px; }
+
+        .proto-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .proto-card {
+            display: block;
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            text-decoration: none;
+            color: inherit;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+            transition: transform 0.15s;
+        }
+        .proto-card:active { transform: scale(0.98); background: #f9f9fb; }
+        .proto-card .emoji { font-size: 32px; margin-bottom: 8px; display: block; }
+        .proto-card .name { font-size: 17px; font-weight: 600; }
+        .proto-card .path { font-size: 12px; color: #8e8e93; margin-top: 2px; }
+
+        .empty {
+            text-align: center;
+            padding: 60px 20px;
+            color: #8e8e93;
+        }
+        .empty .icon { font-size: 48px; margin-bottom: 12px; }
+    </style>
+</head>
+<body>
+    <h1>📱 原型项目</h1>
+    <p class="subtitle">所有原型页面都会自动列在这里</p>
+
+    <div class="proto-list" id="list"></div>
+
+    <p style="margin-top: 32px; font-size: 12px; color: #aeaeb2; text-align: center;">
+        在工作区目录下创建 .html 文件<br>
+        此页面和 iOS App 会自动发现
+    </p>
+
+    <script>
+        // 从服务器动态拉取原型列表（与 iOS App 用同一个 /api/list）
+        fetch('/api/list')
+            .then(r => r.json())
+            .then(data => {
+                const list = document.getElementById('list');
+                const files = data.files || [];
+                if (!files.length) {
+                    list.innerHTML = '<div class="empty"><div class="icon">📄</div>' +
+                        '还没有原型<br>让 Claude 在工作区创建 .html 文件</div>';
+                    return;
+                }
+                list.innerHTML = files.map(f => {
+                    const name = f.name || f.path;
+                    const folder = f.folder ? f.folder + '/' : '';
+                    return '<a class="proto-card" href="/' + f.path + '">' +
+                        '<span class="emoji">📱</span>' +
+                        '<span class="name">' + name + '</span>' +
+                        '<span class="path">' + folder + '</span>' +
+                        '</a>';
+                }).join('');
+            })
+            .catch(() => {
+                document.getElementById('list').innerHTML =
+                    '<div class="empty"><div class="icon">⚠️</div>无法连接预览服务器</div>';
+            });
+    </script>
+</body>
+</html>

@@ -1,0 +1,88 @@
+# ─────────────────────────────────────────────────────────
+#  A. 机器本地状态 / 隐私（最高优先级）
+# ─────────────────────────────────────────────────────────
+.claude/settings.local.json
+**/.claude/settings.local.json
+**/.claude/settings.json
+settings.local.json
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+*.p12
+credentials.json
+**/credentials.json
+
+# 发布前审计用的私有词表 —— 这里列出你不想泄漏的项目名/客户名，
+# tools/check-public.sh 会用它扫描。绝不能提交。
+.private-terms
+
+# ─────────────────────────────────────────────────────────
+#  B. macOS 副产物
+#    .DS_Store 在 macOS 上可能是 UTF-16 编码的 —— 普通文本工具
+#    （strings / grep）看不到里面的内容，但 git add . 会照收。
+#    而它记录的正是"这个目录里有什么"，等于目录清单泄漏。
+#    所以这条是硬性要求，不是"清理习惯"。
+# ─────────────────────────────────────────────────────────
+.DS_Store
+._*
+.Spotlight-V100
+.Trashes
+.fseventsd
+.AppleDouble
+**/.AppleDouble
+
+# ─────────────────────────────────────────────────────────
+#  C. Xcode / 构建产物
+#    .xcodeproj 是 generate-project.py 的确定性产物，
+#    preview.sh 首次运行会自动生成，故不入库。入库会带来：
+#      1. Xcode 打开后改写 pbxproj -> 工作区永远脏
+#      2. 写入 xcuserdata/.../UserInterfaceState.xcuserstate
+#         （该文件含创建者机器的绝对路径和用户名）
+# ─────────────────────────────────────────────────────────
+*.xcodeproj/
+xcuserdata/
+**/xcuserdata/
+*.xcuserstate
+*.xcscmblueprint
+DerivedData/
+.build/
+build/
+*.ipa
+*.dSYM
+*.moved-aside
+
+# ─────────────────────────────────────────────────────────
+#  D. Node
+# ─────────────────────────────────────────────────────────
+node_modules/
+npm-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# ─────────────────────────────────────────────────────────
+#  E. Python
+# ─────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# ─────────────────────────────────────────────────────────
+#  F. 原型工作区运行时产物（工作区里会生成，别误提交）
+#    .last-prototype 记录"最近打开的原型路径"，含项目名和页面标题。
+# ─────────────────────────────────────────────────────────
+.last-prototype
+.server.log
+.runtime_download.log
+*.log
+
+# ─────────────────────────────────────────────────────────
+#  G. 编辑器 / 测试残留
+# ─────────────────────────────────────────────────────────
+.idea/
+.vscode/
+*.swp
+*.swo
+smoke-test/

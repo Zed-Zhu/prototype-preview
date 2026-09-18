@@ -1,0 +1,16 @@
+# 统一换行符为 LF：这些脚本在 macOS/Linux 上跑，
+# CRLF 会让 `bash script.sh` 报 "bad interpreter: ^M"
+* text=auto eol=lf
+
+*.sh   text eol=lf
+*.py   text eol=lf
+*.mjs  text eol=lf
+*.js   text eol=lf
+*.swift text eol=lf
+*.json text eol=lf
+*.md   text eol=lf
+
+*.png  binary
+*.jpg  binary
+*.pdf  binary
+*.icns binary
