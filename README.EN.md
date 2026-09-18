@@ -8,20 +8,37 @@ A Claude Code skill. Claude writes the HTML; this compiles it into an iOS contai
 
 ## Why use it
 
-| Without it | With it |
-|---|---|
-| Write HTML → open Xcode → pick simulator → build → wait → navigate to your page | Say "preview it" |
-| Recompile for every content tweak | **HTML changes need no rebuild** — just pull to refresh |
-| Sharing with someone means walking them through the setup | One `git clone`, working in 10 seconds |
-| Prototypes scattered across random temp folders | One workspace, every `.html` auto-discovered |
+The whole point of building a prototype is **seeing what it actually looks like on a real phone** — not imagining it from a mockup, not squinting at a phone-shaped box in a browser, but running it in the iOS Simulator and poking at it with your finger.
 
-**What you actually get:**
+Getting to that point is where all the time goes: open Xcode, pick a simulator, build, wait, then navigate back to the page you just edited. This skill turns that chain into "preview it".
 
-- **No Swift, no Xcode configuration** — the container app's Swift sources and Xcode project ship with the skill and are generated on demand. You only write HTML.
-- **No waiting** — only the container app itself needs a rebuild. Everyday prototype edits run with `--no-build` and start instantly.
-- **Automatic discovery** — every `.html` in the workspace shows up in the app's page picker, grouped by folder and sorted by modification time. New files appear on pull-to-refresh.
-- **Debuggable** — attach Safari's Web Inspector to the simulator page from your Mac. It's just a web page.
-- **Built-in toolbar** — tap the bottom edge of the screen to switch pages or reload. It auto-hides after 3 seconds so it never covers your design.
+And once that's handled, three other things come along with it: **fast edits, easy screenshots and sharing, and easy upkeep.**
+
+### 1. See it on a phone, immediately
+
+- It really runs in the iPhone Simulator — not a "mobile preview" frame inside a browser
+- System fonts, scroll physics, safe areas, pull-to-refresh: real iOS behaviour, not an imitation
+- The container app ships a toolbar — tap the bottom edge to switch pages or reload. It auto-hides after 3 seconds so it never covers your design
+
+### 2. Fast iteration
+
+- **HTML changes need no rebuild** — only the container app itself does. Everyday edits run with `--no-build` and start instantly
+- Change the HTML, **pull to refresh** in the simulator. No switching windows, no re-running
+- You're still in the conversation with Claude — it can preview for you the moment it finishes an edit
+
+### 3. Screenshots and sharing
+
+- The simulator *is* an actual iPhone, so **a screenshot is a presentable phone screenshot** — drop it straight into a PRD, a status update, or a design review, no device frame needed
+- Because the toolbar auto-hides, **it won't show up in your screenshots**
+- Prototypes are **plain HTML files** — send them to anyone; for multi-page prototypes the recipient just runs the bundled `serve.sh` locally
+
+### 4. Easy to maintain
+
+- Every prototype lives in one workspace, **auto-discovered** and grouped by folder, sorted by modification time. New files appear on pull-to-refresh
+- **Tooling and content are separate** — the scaffolding (compiler, server, container app) and your prototypes are two independent directories. Upgrade the tooling with `git pull` + `bootstrap.sh --update`; **your prototypes are never touched**
+- Prototypes are plain text, so they version-control cleanly — diffs tell you exactly what changed
+- **No Swift, no Xcode configuration** — the container app's sources and project file ship with the skill and are generated on demand. You only write HTML
+- **Debuggable** — attach Safari's Web Inspector to the simulator page from your Mac. It's just a web page
 
 ## Install
 
